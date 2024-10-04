@@ -255,7 +255,7 @@
       const generateMain = async function (elementIdEl) {
         const getInit = await getCurrentInit();
         const useElement = document.getElementById(elementIdEl);
-        useElement.innerHTML = "";
+        useElement.innerHTML = " ";
 
         const bottomMenu = await document.createElement("div");
         bottomMenu.classList.add("lib-cookies-main-menu");
