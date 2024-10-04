@@ -1,5 +1,4 @@
 .lib-cookies-modal {
-    /* display: none; */
     position: fixed;
     top: 0;
     left: 0;
@@ -14,7 +13,7 @@
     margin-right: auto;
     background-color: #FFF;
     transform: translateX(-100%);
-    transition: 2 all ease;
+    transition: 0.5s all ease;
 }
 
 .lib-cookies-modal__backdrop {
@@ -29,17 +28,22 @@
 }
 
 .lib-cookies-modal.show {
-    /* display: block; */
     transform: translateX(0);
-    transition: 2 all ease;
+    transition: 0.5s all ease;
 }
 
 .lib-cookies-modal__backdrop.show {
     display: block;
 }
 
-.lib-cookies-modal__dialog {
-    /* border-radius: 12px; */
+/* .lib-cookies-modal__dialog {
+    border-radius: 12px;
+} */
+
+.lib-cookies-modal__content {
+    padding: 0 1rem;
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
 }
 
 .lib-cookies-modal__header {
@@ -55,11 +59,17 @@
 .lib-cookies-modal__acc {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    border: 1px solid #EEE;
 }
 
 .lib-cookies-modal__acc-item {
     display: block;
+    border-bottom: 1px solid #EEE;
+}
+
+.lib-cookies-modal__acc-item:last-child {
+    display: block;
+    border-bottom: none;
 }
 
 .lib-cookies-modal__acc-item.expanded .lib-cookies-modal__acc-item__body {
@@ -68,12 +78,15 @@
 
 .lib-cookies-modal__acc-item__body {
     display: none;
+    padding: 0.75rem;
 }
 
 .lib-cookies-modal__acc-item__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.75rem;
+    cursor: pointer;
 }
 
 .lib-cookies-modal__acc-item .lib-cookies-modal__acc-item__header__indicator::after {
@@ -112,12 +125,22 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem;
+    border-top: 1px solid #EEE;
 }
 
 .lib-cookies-main-menu__actions {
     display: flex;
     width: 100%;
     gap: 1rem;
+}
+
+.lib-cookies-modal__footer {
+    position: sticky;
+    bottom: 0;
+    padding: 1rem;
+    background-color: #FFFF;
+    border-top: 1px solid #EEE;
+    margin: 0 -0.75rem;
 }
 
 /* Switch */
@@ -165,4 +188,36 @@ label:active:after {
 
 .switch-toogle {
     display: none;
+}
+
+.lib-cookies-button__btn-icon {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.lib-cookies-button {
+    background-color: #00AA13;
+    border-color: #00AA13;
+    color: #FFFFFF;
+    border: 1px solid;
+    font-size: .75em;
+    letter-spacing: .08em;
+    max-width: 394px;
+    padding: 12px 30px;
+    line-height: 1;
+    word-break: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+    font-weight: bold;
+    height: auto;
+    cursor: pointer;
+}
+
+.fs-h2 {
+    font-size: 1.125em;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
 }

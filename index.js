@@ -49,9 +49,11 @@
         }
       };
 
-      const generateButton = function (title, event = () => {}) {
+      const generateButton = function (title, event = () => {}, className = '') {
         const button = document.createElement("button");
-        button.textContent = title;
+        usedClass = className || "lib-cookies-button";
+        button.classList.add(usedClass);
+        button.innerHTML = title;
         button.addEventListener("click", () => {
           event();
         });
@@ -119,10 +121,8 @@
         accordionEl.classList.add("lib-cookies-modal__acc");
 
         menuUseList.forEach((el, index) => {
-          const accordionItem = document.createElement("div");
           const accItem = generateAccordionItem(el, index);
-          accordionItem.appendChild(accItem);
-          accordionEl.appendChild(accordionItem);
+          accordionEl.appendChild(accItem);
         });
 
         return accordionEl;
@@ -132,13 +132,14 @@
         const specificDate = new Date();
         const timeAsInteger = specificDate.getTime();
         const idModal = `lib-cok-${timeAsInteger}`;
+        const settingTitle = "Cookie Settings";
         const settingDesc =
           "When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.)";
 
         const modal = document.createElement("div");
         modal.classList.add("lib-cookies-modal");
 
-        const closeButton = generateButton("Close", () => closeModal(idModal));
+        const closeButton = generateButton(closeSvg, () => closeModal(idModal), 'lib-cookies-button__btn-icon');
 
         const modalDialog = document.createElement("div");
         const modalHeader = document.createElement("div");
@@ -146,20 +147,23 @@
 
         modalDialog.classList.add("lib-cookies-modal__dialog");
         modalHeader.classList.add("lib-cookies-modal__header");
+        modalContent.classList.add("lib-cookies-modal__content");
 
         modalHeader.innerHTML = `<div>Cookies</div>`;
-        modalContent.innerHTML = `<div>
+        modalContent.innerHTML = `
+            <h2 class="fs-h2">${settingTitle}</h2>
             <p>${settingDesc}</p>
-            <a href="#!" target="_blank">More Information</a>
+            <div class="mb-4">
+                <a href="#!" target="_blank">More Information</a>
+            </div>
             <div>
-                <button class="btnAllow">Allow All</button>
-                <div>Manage Consent Preferences</div>
+                <button class="btnAllow lib-cookies-button mb-4">Allow All</button>
+                <div class="mb-4">Manage Consent Preferences</div>
             </div>
             <div class="lib-cookies-modal__menu"></div>
-            <div>
-                <button class="btnConfirm">Confirm My Choices</button>
-            </div>
-        </div>`;
+            <div class="lib-cookies-modal__footer">
+                <button class="btnConfirm lib-cookies-button">Confirm My Choices</button>
+            </div>`;
 
         const accEl = generateMenu();
 
@@ -253,10 +257,10 @@
 
         const modal = await generateModal();
         const buttonManage = await generateButton("Manage Cookies", () =>
-          showModal(modal.id)
+          showModal(modal.id), ""
         );
         const buttonAcceptAll = await generateButton("Accept All Cookies", () =>
-          onAcceptAll()
+          onAcceptAll(), ""
         );
 
         generateBackdrop(elementIdEl, modal.id);
@@ -283,6 +287,11 @@
 
       // Mounted
       generateMain(elementId);
+
+
+
+      // SVG
+      const closeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
     };
   }
 
