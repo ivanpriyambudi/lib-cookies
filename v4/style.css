@@ -171,7 +171,7 @@ h2 {
 .lib-cookies-main-menu {
   position: fixed;
   bottom: 0;
-  width: calc(100% - 2rem);
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 1rem;
