@@ -178,6 +178,13 @@ h2 {
   border-top: 1px solid #eee;
   z-index: 73;
   background-color: #FFF;
+  flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 1192px) {
+  .lib-cookies-main-menu {
+    flex-wrap: wrap;
+  }
 }
 
 .lib-cookies-main-menu__actions {
