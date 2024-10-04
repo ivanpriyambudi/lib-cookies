@@ -1,6 +1,8 @@
 (function (global) {
   function CookiesLib() {
-    this.start = async function (elementId) {
+    this.start = async function (payload = { elementId: "", appLogo: "" }) {
+      const { elementId, appLogo } = payload;
+
       let usedInit = [];
       const menuUseList = [
         {
@@ -49,7 +51,11 @@
         }
       };
 
-      const generateButton = function (title, event = () => {}, className = '') {
+      const generateButton = function (
+        title,
+        event = () => {},
+        className = ""
+      ) {
         const button = document.createElement("button");
         usedClass = className || "lib-cookies-button";
         button.classList.add(usedClass);
@@ -84,6 +90,7 @@
 
         accItem.classList.add("lib-cookies-modal__acc-item");
         headerItem.classList.add("lib-cookies-modal__acc-item__header");
+        contentItem.classList.add("lib-cookies-modal__acc-item__body");
 
         headerItem.innerHTML = `<div class="d-flex gap-1">
                 <div class="lib-cookies-modal__acc-item__header__indicator"></div>
@@ -98,7 +105,7 @@
                       } /><label for="switch-lib-cookies-${index}">Toggle</label>`
                 }
             </div>`;
-        contentItem.innerHTML = `<div class="lib-cookies-modal__acc-item__body">${data.desc}</div>`;
+        contentItem.innerHTML = `<p>${data.desc}</p>`;
 
         headerItem.addEventListener("click", () => {
           const isExpand = accItem.classList.contains("expanded");
@@ -132,6 +139,7 @@
         const specificDate = new Date();
         const timeAsInteger = specificDate.getTime();
         const idModal = `lib-cok-${timeAsInteger}`;
+        const appLogoUsed = appLogo ? `<img height="25px" src="${appLogo}">` : "Cookies";
         const settingTitle = "Cookie Settings";
         const settingDesc =
           "When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.)";
@@ -139,7 +147,11 @@
         const modal = document.createElement("div");
         modal.classList.add("lib-cookies-modal");
 
-        const closeButton = generateButton(closeSvg, () => closeModal(idModal), 'lib-cookies-button__btn-icon');
+        const closeButton = generateButton(
+          closeSvg,
+          () => closeModal(idModal),
+          "lib-cookies-button__btn-icon"
+        );
 
         const modalDialog = document.createElement("div");
         const modalHeader = document.createElement("div");
@@ -149,7 +161,7 @@
         modalHeader.classList.add("lib-cookies-modal__header");
         modalContent.classList.add("lib-cookies-modal__content");
 
-        modalHeader.innerHTML = `<div>Cookies</div>`;
+        modalHeader.innerHTML = `<div>${appLogoUsed}</div>`;
         modalContent.innerHTML = `
             <h2 class="fs-h2">${settingTitle}</h2>
             <p>${settingDesc}</p>
@@ -158,9 +170,9 @@
             </div>
             <div>
                 <button class="btnAllow lib-cookies-button mb-4">Allow All</button>
-                <div class="mb-4">Manage Consent Preferences</div>
+                <h2 class="mb-4 fs-h2">Manage Consent Preferences</h2>
             </div>
-            <div class="lib-cookies-modal__menu"></div>
+            <div class="lib-cookies-modal__menu mb-4"></div>
             <div class="lib-cookies-modal__footer">
                 <button class="btnConfirm lib-cookies-button">Confirm My Choices</button>
             </div>`;
@@ -248,19 +260,23 @@
         const bottomMenu = await document.createElement("div");
         bottomMenu.classList.add("lib-cookies-main-menu");
         bottomMenu.innerHTML = await `<div>
-            <div>We value your Privacy</div>
-            <div>This website stores cookies on your computer. These cookies are used to collect information about how you interact with our website and allow us to remember you. We use this information in order to improve and customize your browsing experience and for analytics and metrics about our visitors both on this website and other media. To find out more about the cookies we use, see our <a href="#!">Cookie Policy</a></div>
+            <h2>We value your Privacy</h2>
+            <p>This website stores cookies on your computer. These cookies are used to collect information about how you interact with our website and allow us to remember you. We use this information in order to improve and customize your browsing experience and for analytics and metrics about our visitors both on this website and other media. To find out more about the cookies we use, see our <a href="#!">Cookie Policy</a></p>
         </div>`;
         const bottomMenuActions = await document.createElement("div");
 
         bottomMenuActions.classList.add("lib-cookies-main-menu__actions");
 
         const modal = await generateModal();
-        const buttonManage = await generateButton("Manage Cookies", () =>
-          showModal(modal.id), ""
+        const buttonManage = await generateButton(
+          "Manage Cookies",
+          () => showModal(modal.id),
+          "lib-cookies-button__btn-text"
         );
-        const buttonAcceptAll = await generateButton("Accept All Cookies", () =>
-          onAcceptAll(), ""
+        const buttonAcceptAll = await generateButton(
+          "Accept All Cookies",
+          () => onAcceptAll(),
+          ""
         );
 
         generateBackdrop(elementIdEl, modal.id);
@@ -272,7 +288,7 @@
         useElement.appendChild(modal.element);
 
         if (getInit.initAble) {
-            useElement.classList.add('d-none');
+          useElement.classList.add("d-none");
         }
       };
 
@@ -280,18 +296,17 @@
         usedInit = ["switch-lib-cookies-2"];
 
         return {
-            initAble: false,
-            data: usedInit
-        }
+          initAble: false,
+          data: usedInit,
+        };
       };
 
       // Mounted
       generateMain(elementId);
 
-
-
       // SVG
-      const closeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+      const closeSvg =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
     };
   }
 
