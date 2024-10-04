@@ -1,5 +1,5 @@
 .lib-cookies-modal {
-    display: none;
+    /* display: none; */
     position: fixed;
     top: 0;
     left: 0;
@@ -13,6 +13,8 @@
     height: 100%;
     margin-right: auto;
     background-color: #FFF;
+    transform: translateX(-100%);
+    transition: 2 all ease;
 }
 
 .lib-cookies-modal__backdrop {
@@ -27,7 +29,9 @@
 }
 
 .lib-cookies-modal.show {
-    display: block;
+    /* display: block; */
+    transform: translateX(0);
+    transition: 2 all ease;
 }
 
 .lib-cookies-modal__backdrop.show {
